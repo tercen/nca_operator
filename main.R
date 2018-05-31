@@ -6,7 +6,7 @@ do.nca = function(df, dose, R2ADJ) {
 
   iAUC = data.frame(Name=c("AUC[0-8h]","AUC[0-24h]"), Start=c(0,0), End=c(8,24))
   
-  pk <-NonCompart::sNCA(df$.x,df$.y, dose = dose, adm = "Bolus", concUnit="mg/mL",iAUC=iAUC, down = "Log", R2ADJ = R2ADJ)
+  pk <-NonCompart::sNCA(df$.x,df$.y, dose = dose, concUnit="mg/mL",iAUC=iAUC, down = "Log", R2ADJ = R2ADJ)
   TMAX <- round(pk["TMAX"])
   CMAX <- round(pk["CMAX"])
   LAMZHL <- round(pk["LAMZHL"])
