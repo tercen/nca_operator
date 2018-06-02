@@ -14,11 +14,6 @@ Source: CRAN
 Version: 0.4.2
 Hash: db7c930aed927df4f876fa68d2245f6a
 
-Package: PK
-Source: CRAN
-Version: 1.3-4
-Hash: a620109a8fa96dfad58d636e13871e21
-
 Package: R6
 Source: CRAN
 Version: 2.2.2

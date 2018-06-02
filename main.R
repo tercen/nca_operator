@@ -23,9 +23,10 @@ do.nca = function(df, dose, R2ADJ) {
     TMAX_h  = TMAX,
     CMAX_ng_per_ml  = CMAX,
     LAMZHL_h= LAMZHL,
-    AUC_0_8h_ng_per_ml = AUC_0_4h,
+    AUC_0_4h_ng_per_ml = AUC_0_4h,
     AUC_0_8h_ng_per_ml = AUC_0_8h,
-    AUC_0_8h_ng_per_ml = AUC_4_24h,
+    AUC_0_12h_ng_per_ml = AUC_0_12h,
+    AUC_4_24h_ng_per_ml = AUC_4_24h,
     AUC_0_24h_ng_per_ml = AUC_0_24h)
   return(result_df)
 }
