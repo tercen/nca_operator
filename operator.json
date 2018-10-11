@@ -4,20 +4,7 @@
   "tags": ["Pharmacokinetic", "Pharma"],
   "authors": ["tercen"],
   "urls": ["https://github.com/tercen/nca_operator"],
-  "properties": [
-  {
-    "kind": "DoubleProperty",
-    "name": "dose",
-    "defaultValue": 0,
-    "description": "The dose in mg"
-  },
-   {
-    "kind": "DoubleProperty",
-    "name": "R2ADJ",
-    "defaultValue": 0.9,
-    "description": "Minimum adjusted R-square value to determine terminal slope automatically"
-  }
-  ]
+  "properties": []
 }
 
 

@@ -2,11 +2,15 @@ library(tercen)
 library(dplyr)
 library(NonCompart)
 
-do.nca = function(df, dose, R2ADJ) {
-
+do.nca = function(df) {
+  ci <- df$.ci[1]
+  ri <- df$.ri[1]
+  col_annot <- ctx$cselect()
+  dose <- col_annot[[1]][ci+1]
+  
   iAUC = data.frame(Name=c("AUC[0-4h]","AUC[0-8h]","AUC[0-12h]","AUC[4h-24h]","AUC[0-24h]"), Start=c(0,0,0,4,0), End=c(4,8,12,24,24))
   
-  pk <-NonCompart::sNCA(df$.x,df$.y, dose = dose, concUnit="mg/mL",iAUC=iAUC, adm = "Extravascular", down = "Linear", R2ADJ = R2ADJ)
+  pk <-pkr::sNCA(df$.x,(df$.y), dose = dose, concUnit="mg/L",iAUC=iAUC, adm = "Extravascular", down = "Linear", returnNA = TRUE )
   
   TMAX <- round(pk["TMAX"])
   CMAX <- round(pk["CMAX"])
@@ -20,9 +24,9 @@ do.nca = function(df, dose, R2ADJ) {
   result_df <-  data.frame(
     .ri = df$.ri[1],
     .ci = df$.ci[1],
-    TMAX_h  = TMAX,
-    CMAX_ng_per_ml  = CMAX,
-    LAMZHL_h= LAMZHL,
+    TMAX_h             = TMAX,
+    CMAX_ng_per_ml     = CMAX,
+    LAMZHL_h           = LAMZHL,
     AUC_0_4h_ng_per_ml = AUC_0_4h,
     AUC_0_8h_ng_per_ml = AUC_0_8h,
     AUC_0_12h_ng_per_ml = AUC_0_12h,
@@ -35,13 +39,17 @@ ctx = tercenCtx()
 
 if (!ctx$hasXAxis)
   stop("An x-axis factor is required.")
-# 
-dose=as.double(ctx$op.value('dose'))
-R2ADJ=as.double(ctx$op.value('R2ADJ'))
+
+if (ncol(ctx$cselect()) < 1) stop ("Require dose as a first factor in column zone")
+dose <- ctx$cselect()[[1]]
+
+check_dose_in_range <- (all(unlist(lapply(dose, function(x) x %in% 1:1000))))
+
+if (!check_dose_in_range)  stop ("dose need to be in range from 1mg to 1000mg")
 
 ctx %>%
   select(.ci, .ri, .y, .x) %>%
   group_by(.ci, .ri) %>%
-  do(do.nca(., dose, R2ADJ)) %>%
+  do(do.nca(., R2ADJ)) %>%
   ctx$addNamespace() %>%
   ctx$save()
