@@ -1,7 +1,7 @@
 {
   "name": "non compartment analysis",
   "description": "Noncompartmental Analysis for Pharmacokinetic Data",
-  "tags": ["Pharmacokinetic", "Pharma"],
+  "tags": ["pharmacokinetics", "Pharmacokinetic", "Pharma"],
   "authors": ["tercen"],
   "urls": ["https://github.com/tercen/nca_operator"],
   "properties": []
